@@ -1,0 +1,111 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: iqs-positron
+  name: iqs-bundles-processing-node-deploy
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: iqs-bundles-processing-node
+    spec: 
+      containers:
+      - name: iqs-bundles-processing-node-pod
+        image: registry.gitlab.com/iqs-bundles/iqs-bundles-processing-node:1.0.0-1-rc
+        ports:
+        - containerPort: 8080
+          name: processing
+        env:
+        - name: ENV_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: env_name
+        - name: ROOT_CLUSTER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: root_cluster_host
+        - name: IQS_GROUPS_USERS_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: iqs_groups_users_service_port
+        - name: IQS_GROUPS_SYSTEM_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: iqs_groups_system_service_port
+        - name: IQS_GROUPS_CONFIGURATION_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: iqs_groups_configuration_service_port
+        - name: IQS_GROUPS_GATEWAYS_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: iqs_groups_gateways_service_port
+        - name: MONGO_ENABLED
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: mongo_enabled
+        - name: MONGO_SERVICE_URI
+          valueFrom:
+            secretKeyRef:
+              name: iqs-positron-secret
+              key: mongo_service_uri
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: iqs-positron-secret
+              key: aws_region
+        - name: AWS_ACCESS_ID
+          valueFrom:
+            secretKeyRef:
+              name: iqs-positron-secret
+              key: aws_access_id
+        - name: AWS_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: iqs-positron-secret
+              key: aws_access_key
+        - name: STATE_UPDATE_OFFLINE_CHECK_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: iqs-positron-config
+              key: state_update_offline_check_interval
+        livenessProbe:
+          httpGet:
+            path: /heartbeat
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 40
+          timeoutSeconds: 6
+      imagePullSecrets:
+      - name: gitlab-docker-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: iqs-positron
+  name: iqs-bundles-processing
+  labels: 
+    app: iqs-bundles-processing-node
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    nodePort: 30020
+    protocol: TCP
+    name: processing
+  selector:
+    app: iqs-bundles-processing-node

@@ -1,0 +1,62 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const pip_services3_container_node_1 = require("pip-services3-container-node");
+const pip_clients_msgdistribution_node_1 = require("pip-clients-msgdistribution-node");
+const pip_clients_statistics_node_1 = require("pip-clients-statistics-node");
+const pip_clients_organizations_node_1 = require("pip-clients-organizations-node");
+const iqs_clients_controlobjects_node_1 = require("iqs-clients-controlobjects-node");
+const iqs_clients_zones_node_1 = require("iqs-clients-zones-node");
+const iqs_clients_eventrules_node_1 = require("iqs-clients-eventrules-node");
+const iqs_clients_dataprofiles_node_1 = require("iqs-clients-dataprofiles-node");
+const iqs_clients_devices_node_1 = require("iqs-clients-devices-node");
+const iqs_clients_deviceprofiles_node_1 = require("iqs-clients-deviceprofiles-node");
+const pip_clients_clusters_node_1 = require("pip-clients-clusters-node");
+const iqs_clients_signals_node_1 = require("iqs-clients-signals-node");
+const iqs_clients_statistics_node_1 = require("iqs-clients-statistics-node");
+const iqs_clients_opevents_node_1 = require("iqs-clients-opevents-node");
+const pip_clients_routes_node_1 = require("pip-clients-routes-node");
+const iqs_clients_objectstates_node_1 = require("iqs-clients-objectstates-node");
+const pip_clients_positions_node_1 = require("pip-clients-positions-node");
+const pip_clients_transducerdata_node_1 = require("pip-clients-transducerdata-node");
+const iqs_clients_attendance_node_1 = require("iqs-clients-attendance-node");
+const iqs_clients_currobjectstates_node_1 = require("iqs-clients-currobjectstates-node");
+const iqs_clients_currdevicestates_node_1 = require("iqs-clients-currdevicestates-node");
+const iqs_clients_stateupdates_node_1 = require("iqs-clients-stateupdates-node");
+const iqs_clients_incidents_node_1 = require("iqs-clients-incidents-node");
+const iqs_clients_rosters_node_1 = require("iqs-clients-rosters-node");
+const iqs_clients_corrections_node_1 = require("iqs-clients-corrections-node");
+const pip_clients_routeanalysis_node_1 = require("pip-clients-routeanalysis-node");
+const iqs_clients_eventgeneration_node_1 = require("iqs-clients-eventgeneration-node");
+class ProcessingBundleClientsFactory extends pip_services3_container_node_1.DefaultContainerFactory {
+    constructor() {
+        super();
+        this.add(new pip_clients_msgdistribution_node_1.MessageDistributionClientFactory());
+        this.add(new pip_clients_statistics_node_1.StatisticsClientFactory());
+        this.add(new pip_clients_organizations_node_1.OrganizationsClientFactory());
+        this.add(new iqs_clients_controlobjects_node_1.ControlObjectsClientFactory());
+        this.add(new iqs_clients_zones_node_1.ZonesClientFactory());
+        this.add(new iqs_clients_eventrules_node_1.EventRulesClientFactory());
+        this.add(new iqs_clients_dataprofiles_node_1.DataProfilesClientFactory());
+        this.add(new iqs_clients_devices_node_1.DevicesClientFactory());
+        this.add(new iqs_clients_deviceprofiles_node_1.DeviceProfilesClientFactory());
+        this.add(new pip_clients_clusters_node_1.ClustersClientFactory());
+        this.add(new iqs_clients_signals_node_1.SignalsClientFactory());
+        this.add(new iqs_clients_statistics_node_1.StatisticsClientFactory());
+        this.add(new iqs_clients_opevents_node_1.OperationalEventsClientFactory());
+        this.add(new pip_clients_routes_node_1.RoutesClientFactory());
+        this.add(new iqs_clients_objectstates_node_1.ObjectStatesClientFactory());
+        this.add(new pip_clients_positions_node_1.PositionsClientFactory());
+        this.add(new pip_clients_transducerdata_node_1.TransducerDataClientFactory());
+        this.add(new iqs_clients_attendance_node_1.AttendanceClientFactory());
+        this.add(new iqs_clients_currobjectstates_node_1.CurrentObjectStatesClientFactory());
+        this.add(new iqs_clients_currdevicestates_node_1.CurrentDeviceStatesClientFactory());
+        this.add(new iqs_clients_stateupdates_node_1.StateUpdatesClientFactory());
+        this.add(new iqs_clients_incidents_node_1.IncidentsClientFactory());
+        this.add(new iqs_clients_rosters_node_1.RostersClientFactory());
+        this.add(new iqs_clients_corrections_node_1.CorrectionsClientFactory());
+        this.add(new pip_clients_routeanalysis_node_1.RouteAnalysisClientFactory());
+        this.add(new iqs_clients_eventgeneration_node_1.EventGenerationClientFactory());
+    }
+}
+exports.ProcessingBundleClientsFactory = ProcessingBundleClientsFactory;
+//# sourceMappingURL=ProcessingBundleClientsFactory.js.map
